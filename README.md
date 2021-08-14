@@ -1,2 +1,4 @@
 # shayna
-Toko Online Laravel Vue Js
+Toko Online 
+Backend Laravel 
+Frontend Vue Js
