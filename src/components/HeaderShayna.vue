@@ -6,10 +6,10 @@
                 <div class="container">
                     <div class="ht-left">
                         <div class="mail-service">
-                            <i class=" fa fa-envelope"></i> hello.shayna@gmail.com
+                            <i class=" fa fa-envelope"></i> riduanrisandi@gmail.com
                         </div>
                         <div class="phone-service">
-                            <i class=" fa fa-phone"></i> +628 22081996
+                            <i class=" fa fa-phone"></i> +62 82213934655
                         </div>
                     </div>
                 </div>
@@ -18,9 +18,9 @@
                 <div class="inner-header">
                     <div class="row">
                         <div class="col-lg-2 col-md-2">
-                            <div class="logo">
-                                <a href="./index.html">
-                                    <img src="img/logo_website_shayna.png" alt="" />
+                            <div class="logo"> 
+                                <a href="#">
+                                    <router-link to="/"><img src="img/sandi_logo.png" alt="" /></router-link> 
                                 </a>
                             </div>
                         </div>
@@ -31,50 +31,43 @@
                                     Keranjang Belanja &nbsp;
                                     <a href="#">
                                         <i class="icon_bag_alt"></i>
-                                        <span>3</span>
+                                        <span>{{keranjangUser.length}}</span>
                                     </a>
                                     <div class="cart-hover">
                                         <div class="select-items">
                                             <table>
-                                                <tbody>
-                                                    <tr>
+                                                <tbody v-if="keranjangUser.length > 0">
+                                                    <tr v-for="keranjang in keranjangUser" :key="keranjang.id">
                                                         <td class="si-pic">
-                                                            <img src="img/select-product-1.jpg" alt="" />
+                                                            <img class="photo-item" :src="keranjang.photo" alt="" />
                                                         </td>
                                                         <td class="si-text">
                                                             <div class="product-selected">
-                                                                <p>$60.00 x 1</p>
-                                                                <h6>Kabino Bedside Table</h6>
+                                                                <p>${{keranjang.price}} x 1</p>
+                                                                <h6>{{keranjang.name}}</h6>
                                                             </div>
                                                         </td>
-                                                        <td class="si-close">
+                                                        <td @click="removeItem(keranjang.id)" class="si-close">
                                                             <i class="ti-close"></i>
                                                         </td>
                                                     </tr>
+                                                     
+                                                </tbody>
+                                                <tbody v-else>
                                                     <tr>
-                                                        <td class="si-pic">
-                                                            <img src="img/select-product-2.jpg" alt="" />
-                                                        </td>
-                                                        <td class="si-text">
-                                                            <div class="product-selected">
-                                                                <p>$60.00 x 1</p>
-                                                                <h6>Kabino Bedside Table</h6>
-                                                            </div>
-                                                        </td>
-                                                        <td class="si-close">
-                                                            <i class="ti-close"></i>
-                                                        </td>
+                                                        <td>Keranjang Kosong</td>
                                                     </tr>
+
                                                 </tbody>
                                             </table>
                                         </div>
                                         <div class="select-total">
                                             <span>total:</span>
-                                            <h5>$120.00</h5>
+                                            <h5>${{totalHarga}}.00</h5>
                                         </div>
-                                        <div class="select-button">
-                                            <a href="#" class="primary-btn view-card">VIEW CARD</a>
-                                            <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
+                                        <div class="select-button"> 
+                                            <a href="#" class="primary-btn view-card"><router-link to="/cart" style="color:#FFF">VIEW CARD</router-link></a> 
+                                            <a href="#" class="primary-btn checkout-btn"><router-link to="/cart">CHECK OUT</router-link></a> 
                                         </div>
                                     </div>
                                 </li>
@@ -90,6 +83,61 @@
 
 <script>
 export default {
-    name:"HeaderShayna"
-}
+    name:"HeaderShayna",
+    data() 
+    {
+        return{ 
+            keranjangUser: []
+
+        }
+
+    },
+    methods:{
+        removeItem(idx){
+             
+             // cari tau id dari si item yang akan dihapus
+             let keranjangUserStorage = JSON.parse(localStorage.getItem("keranjangUser"));
+             let itemKeranjangUserStorage = keranjangUserStorage.map(itemKeranjangUserStorage => itemKeranjangUserStorage.id);
+
+             //cocokkan id item dengan id yg di storage
+             let index = itemKeranjangUserStorage.findIndex(id => id == idx);
+             this.keranjangUser.splice(index,1);
+
+            const parsed = JSON.stringify(this.keranjangUser);
+            localStorage.setItem('keranjangUser',parsed);
+
+            window.location.reload();
+            // this.keranjangUser.splice(index,1);
+            // const parsed = JSON.stringify(this.keranjangUser);
+            // localStorage.setItem('keranjangUser',parsed);
+        }
+    },
+    mounted(){
+        if (localStorage.getItem('keranjangUser')){
+            try{
+                this.keranjangUser= JSON.parse(localStorage.getItem('keranjangUser'));
+            } catch(e){
+                localStorage.removeItem('keranjangUser');
+            }
+        }
+    },
+    computed:
+    {
+
+        totalHarga()
+        {
+            return this.keranjangUser.reduce(function(items,data){
+                // alert(items);
+                return items + data.price;
+            },0);
+        }
+    }
+};
 </script>
+
+<style scoped>
+    .photo-item{
+        width: 80px;
+        height: 80px;;
+    }  
+</style>

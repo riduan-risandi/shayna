@@ -7,12 +7,12 @@
                     <div class="col-lg-5">
                         <div class="footer-left text-left">
                             <div class="footer-logo">
-                                <a href="#"><img src="img/logo_website_shayna_white.png" alt="" /></a>
+                                <a href="#"><img src="img/Sandi_logo_white.png" alt="" /></a>
                             </div>
                             <ul>
-                                <li>Address: Setra Duta, Bandung</li>
-                                <li>Phone: +628 22081996</li>
-                                <li>Email: hello.shayna@gmail.com</li>
+                                <li>Address: DKI Jakarta</li>
+                                <li>Phone: +62 82213934655</li>
+                                <li>Email: riduanrisandi@gmail.com</li>
                             </ul>
                             <div class="footer-social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -52,7 +52,7 @@
                         <div class="col-lg-12">
                             <div class="copyright-text">
                                 Copyright &copy; 
-                                2021 All rights reserved | Shayna
+                                2021 All rights reserved | Sandi
                             </div>
                         </div>
                     </div>
