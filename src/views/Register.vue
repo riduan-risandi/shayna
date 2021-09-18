@@ -105,7 +105,6 @@
     <PartnerShayna />
     <FooterShayna />
 
-    
 
   </div>
 </template>

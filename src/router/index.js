@@ -8,6 +8,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 // import SuccessAddCustomer from '../views/customers/Success.vue'
 
+
 Vue.use(VueRouter)
 
 const routes = [

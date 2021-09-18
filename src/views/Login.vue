@@ -81,6 +81,7 @@ import PartnerShayna from '@/components/PartnerShayna.vue'
 import FooterShayna from '@/components/FooterShayna.vue';
 import axios from "axios";
 
+
  export default {
     name: "cart",
     components: 

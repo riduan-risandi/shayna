@@ -7,6 +7,7 @@
             <h3 class="mt-4">
                 Sukses Terbayar!
             </h3>
+            
             <p class="mt-2">
                 Silakan tunggu update terbaru dari kami via email yang sudah Anda daftarkan sebelumnya.
             </p>
