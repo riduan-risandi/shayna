@@ -4,6 +4,9 @@ import Home from '../views/Home.vue'
 import Product from '../views/Product.vue'
 import ShoppingCart from '../views/ShoppingCart.vue'
 import Success from '../views/Success.vue'
+import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
+// import SuccessAddCustomer from '../views/customers/Success.vue'
 
 Vue.use(VueRouter)
 
@@ -37,6 +40,21 @@ const routes = [
     name: 'success',
     component: Success
   },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register
+  },
+  // {
+  //   path: '/customers/successAddCustomer',
+  //   name: 'successAddCustomer',
+  //   component: SuccessAddCustomer
+  // },
 ]
 
 const router = new VueRouter({
