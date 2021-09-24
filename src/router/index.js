@@ -4,9 +4,9 @@ import Home from '../views/Home.vue'
 import Product from '../views/Product.vue'
 import ShoppingCart from '../views/ShoppingCart.vue'
 import Success from '../views/Success.vue'
-import Login from '../views/Login.vue'
-import Register from '../views/Register.vue'
-// import SuccessAddCustomer from '../views/customers/Success.vue'
+import Login from '../views/customers/Login.vue'
+import Register from '../views/customers/Register.vue'
+import RegistrationSuccessful  from '../views/customers/Success.vue'
 
 
 Vue.use(VueRouter)
@@ -51,11 +51,11 @@ const routes = [
     name: 'register',
     component: Register
   },
-  // {
-  //   path: '/customers/successAddCustomer',
-  //   name: 'successAddCustomer',
-  //   component: SuccessAddCustomer
-  // },
+  {
+    path: '/register/success',
+    name: 'RegistrationSuccessful',
+    component: RegistrationSuccessful
+  },
 ]
 
 const router = new VueRouter({
