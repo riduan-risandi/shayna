@@ -3,10 +3,3 @@ Create file Vue : vue create coba_vue
 jalanin server: npm run serve
 localhost:8080
 
-digital indonesia
-31311313
-
-
-prima karya
-pagi 10 pagi 
-kamis 25, 

@@ -44,7 +44,7 @@
                                             <td class="cart-title first-row text-center">
                                                 <h5>{{keranjang.name}}</h5>
                                             </td>
-                                            <td class="p-price first-row">${{keranjang.price}}</td>
+                                            <td class="p-price first-row"><small>Rp</small>{{keranjang.price}}</td>
                                             <td @click="removeItem(keranjang.id)" class="delete-item">
                                                 <a href="#">
                                                     <i class="material-icons">close</i>
@@ -88,9 +88,9 @@
                             <div class="proceed-checkout text-left">
                                 <ul>
                                     <li class="subtotal">ID Transaction <span>#SH12000</span></li>
-                                    <li class="subtotal mt-3">Subtotal <span>${{totalHarga}}</span></li>
+                                    <li class="subtotal mt-3">Subtotal <span><small>Rp</small>{{totalHarga}}</span></li>
                                     <li class="subtotal mt-3">Pajak <span>10% {{ditambahPajak}}</span></li>
-                                    <li class="subtotal mt-3">Total Biaya <span>${{totalBiaya}}</span></li>
+                                    <li class="subtotal mt-3">Total Biaya <span><small>Rp</small>{{totalBiaya}}</span></li>
                                     <li class="subtotal mt-3">Bank Transfer <span>Mandiri</span></li>
                                     <li class="subtotal mt-3">No. Rekening <span>2208 1996 1403</span></li>
                                     <li class="subtotal mt-3">Nama Penerima <span>Shayna</span></li>
@@ -201,7 +201,7 @@ import axios from "axios";
         totalHarga()
         {
             return this.keranjangUser.reduce(function(items,data){
-                // alert(items);
+                alert(data.price);
                 return items + data.price;
             },0);
         },

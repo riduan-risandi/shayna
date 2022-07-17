@@ -27,8 +27,8 @@
                                         </a>
                                     </router-link> 
                                 <div class="product-price">
-                                    Rp{{ itemProduct.price}}
-                                    <span>Rp35.00</span>
+                                    <small>Rp</small>{{ itemProduct.price}}
+                                    <span><small>Rp</small>35.00</span>
                                 </div>
                             </div>
                         </div> 
