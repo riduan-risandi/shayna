@@ -73,6 +73,52 @@
                                         <label for="namaLengkap">No. HP</label>
                                         <input type="text" class="form-control" id="noHP" aria-describedby="noHPHelp" placeholder="Masukan No. HP" v-model="customerInfo.number">
                                     </div>
+                                    
+                                        <!-- <select id="provinces"> -->
+                                        <!-- <select   class="form-control" id="provinces" @change="onChange($event)">
+                                            <option>-- Pilih Provinsi -- </option>
+                                            <option  v-for="province in provinces" :key="province.id">{{province}}</option> 
+                                        </select>  -->
+
+                                        <!-- <select  id="provinces">
+                                            <option v-for="person in provinces" v-bind:value="key">
+                                            {{ person.name }}
+                                            </option>
+                                        </select> -->
+
+                                    <div class="form-group">
+                                        <label for="provinsi">Provinsi</label> 
+                                        <select   class="form-control" id="provinces" @change="changeProvince($event)">
+                                            <option>-- Pilih Provinsi -- </option>
+                                            
+                                            <option  v-for="province in provinces" :key="province.province_id" :value="province.province_id">{{province.title}}</option> 
+                                        </select> 
+
+                                    </div> 
+                                    <div class="form-group">
+                                        <label for="kota">Kota</label>  
+                                        <select   class="form-control" id="cities"  v-model="cities_id">
+                                            <option>-- Pilih Kota -- </option>
+                                            <option  v-for="city in cities" :key="city.city_id" :value="city.city_id">{{city.title}}</option> 
+                                        </select> 
+ 
+                                    </div> 
+                                    <div class="form-group">
+                                        <label for="kurir">Kurir</label>  
+                                        <select   class="form-control" id="couriers" @change="changeCourier($event)">
+                                            <option>-- Pilih Kurir -- </option>
+                                            <option  v-for="courier in couriers" :key="courier.code" :value="courier.code">{{courier.title}}</option> 
+                                        </select> 
+ 
+                                    </div> 
+                                    <div class="form-group">
+                                        <label for="kurir">Ongkos Kirim</label>  
+                                        <select   class="form-control" id="ongkirs">
+                                            <option>-- Silahkan Pilih -- </option>
+                                            <option  v-for="ongkir in ongkirs" :key="ongkir.cost" :value="ongkir.cost">{{ongkir.fullname}}</option> 
+                                        </select> 
+ 
+                                    </div> 
                                     <div class="form-group">
                                         <label for="alamatLengkap">Alamat Lengkap</label>
                                         <textarea class="form-control" id="alamatLengkap" rows="3" v-model="customerInfo.address"></textarea>
@@ -105,14 +151,10 @@
             </div>
         </div>
     </section>
-    <!-- Shopping Cart Section End -->
-  
-
-    
+    <!-- Shopping Cart Section End -->  
 
   </div>
-</template>
-
+</template> 
 
 <script> 
 
@@ -129,13 +171,22 @@ import axios from "axios";
     {
         return{ 
             keranjangUser: [],
+            /* keranjangUserTest: [], */
             customerInfo:{
                 name:'',
                 email:'',
                 number:'',
                 address:''
-            }
-
+            },
+            // provinces:{ 
+            // }, 
+            provinces: [],
+            cities: [],
+            couriers: [],
+            ongkirs: [],
+            cities_id:null,
+            // provinceAll: [],
+            // cities:{}
         }
 
     },
@@ -145,6 +196,42 @@ import axios from "axios";
         //     const parsed = JSON.stringify(this.keranjangUser);
         //     localStorage.setItem('keranjangUser',parsed);
         // },
+
+       /*  setDataPicture(data){
+            console.log("TEST");
+            console.log(data);
+            // replace object productDetails dengan data dari API
+            this.keranjangUserTest = data;
+            // replace value gambardefault dengan data dari API(galleries)
+            // this.gambar_default = data.galleries[0].photo;
+
+
+        }, */
+        setDataProvinces(data)
+        {
+            // replace object provinceAll dengan data dari API
+            this.provinces = data; 
+            // console.log(data) 
+        },
+        setDataCities(data)
+        {
+            // console.log(data);
+            // replace object provinceAll dengan data dari API
+            this.cities = data;   
+        },
+        setDataCouriers(data)
+        {
+            // replace object provinceAll dengan data dari API
+            this.couriers = data;   
+        },
+        setDataOngkir(data)
+        {
+            // console.log("masuk");
+            // console.log(data);
+            // replace object ongkir dengan data dari API
+            this.ongkirs = data;   
+        },
+
         removeItem(idx)
         {
              
@@ -184,7 +271,40 @@ import axios from "axios";
                 .then(() => this.$router.push("success"))
                 //eslint-disable-next-line no-console
                 .catch(err => console.log(err));
+        },
+        changeProvince(event)
+        {
+            // console.log("masuk")
+            // console.log(event.target.value);
+            
+            axios
+            .get("http://127.0.0.1:8000/api/cities",{
+                params:{
+                    id:event.target.value
+                }
+            })
+            // .then(res=>(this.provinces = res.data.data)) 
+            // .then(res=>(console.log(res.data.data)))
+            .then(res=>(this.setDataCities(res.data.data)))
+            .catch(err=>console.log(err)); 
+
+        },
+        changeCourier(event)
+        {
+            var self = this;  
+            axios
+            .get("http://127.0.0.1:8000/api/cek_ongkir",{
+                params:{
+                    courier:event.target.value,
+                    city_destination:self.cities_id,
+                }
+            }) 
+            // .then(res=>(console.log(res.data.data)))
+            .then(res=>(this.setDataOngkir(res.data.data)))
+            .catch(err=>console.log(err)); 
+
         }
+
     },
     mounted(){
         if (localStorage.getItem('keranjangUser')){
@@ -194,14 +314,55 @@ import axios from "axios";
                 localStorage.removeItem('keranjangUser');
             }
         }
+
+        axios
+            .get("http://127.0.0.1:8000/api/provinces",{
+                // params:{
+                //     id:this.$route.params.id
+                // }
+            })
+            // .then(res=>(this.provinces = res.data.data)) 
+            // .then(res=>(console.log(res.data.data)))
+            .then(res=>(this.setDataProvinces(res.data.data)))
+            .catch(err=>console.log(err));
+            
+        axios
+            .get("http://127.0.0.1:8000/api/couriers",{
+                 
+            })
+            // .then(res=>(this.provinces = res.data.data)) 
+            // .then(res=>(console.log(res.data.data)))
+            .then(res=>(this.setDataCouriers(res.data.data)))
+            .catch(err=>console.log(err));
+
+        axios
+            .get("http://127.0.0.1:8000/api/cek_ongkir",{
+                 
+            })
+            // .then(res=>(this.provinces = res.data.data)) 
+            // .then(res=>(console.log(res.data.data)))
+            .then(res=>(this.setDataCouriers(res.data.data)))
+            .catch(err=>console.log(err));
+
+       /*  axios
+            .get("http://127.0.0.1:8000/api/cart",{
+                params:{
+                    id:this.$route.params.id
+                }
+            })
+            // .then(res=>(this.keranjangUser = res.data.data))
+            .then(res=>(this.setDataPicture(res.data.data)))
+            // .then(res=>(console.log("test1")))
+            .catch(err=>console.log(err)); */
+            
     },
      computed:
     {
-
         totalHarga()
         {
             return this.keranjangUser.reduce(function(items,data){
-                alert(data.price);
+                // alert(data.price);
+                // console.log(data.price)
                 return items + data.price;
             },0);
         },
