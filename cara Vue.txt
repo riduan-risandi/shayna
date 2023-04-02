@@ -3,3 +3,6 @@ Create file Vue : vue create coba_vue
 jalanin server: npm run serve
 localhost:8080
 
+
+kalau error
+export NODE_OPTIONS=--openssl-legacy-provider

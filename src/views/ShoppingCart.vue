@@ -253,7 +253,8 @@ import axios from "axios";
             let productIds = this.keranjangUser.map(function(product){
                 return product.id
             });
-
+            // console.log(productIds);
+            // return false;
             let checkoutData={
                 'name' : this.customerInfo.name,
                 'email' : this.customerInfo.email,

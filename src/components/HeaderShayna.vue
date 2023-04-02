@@ -8,7 +8,7 @@
                     <div class="ht-left">
                         <div class="mail-service">
                             <i class="fa fa-envelope"></i>
-                            riduanrisandi@gmail.com
+                            sandistore@gmail.com
                         </div>
                         <div class="phone-service">
                             <i class="fa fa-phone"></i>

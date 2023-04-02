@@ -12,7 +12,7 @@
                             <ul>
                                 <li>Address: DKI Jakarta</li>
                                 <li>Phone: +62 82213934655</li>
-                                <li>Email: riduanrisandi@gmail.com</li>
+                                <li>Email: sandistore@gmail.com</li>
                             </ul>
                             <div class="footer-social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
